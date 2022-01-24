@@ -17,7 +17,7 @@ module.exports = {
     },
     devServer: {
         static: {
-            directory: path.join(__dirname, 'public')
+            directory: path.resolve(__dirname, 'public')
         },
         hot: true,
     },
@@ -34,9 +34,11 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
-                    options: [
-                        isDevelopment && require.resolve('react-refresh/babel')
-                    ].filter(Boolean),
+                    options: {
+                        plugins: [
+                            isDevelopment && require.resolve('react-refresh/babel')
+                        ].filter(Boolean)
+                }
                 },
             },
             {
